@@ -1,0 +1,25 @@
+            <form action="/records" method="POST" enctype="multipart/form-data">
+                
+				<div class="form-group">
+					</br>
+					<label>Définir l'encodage du fichier :</label>
+					
+					<div class="radio">						
+						<label><input type="radio" name="encodage_in" value="ISO-5426" checked>ISO 5426 (notices Electre, ...)</label>
+					</div>
+					<div class="radio">
+						<label><input type="radio" name="encodage_in" value="UTF-8">UTF-8 (notices Les Lisières, ...)</label>
+					</div>
+				</div>
+
+                <div class="form-group">
+					</br>
+                    <label for="eanlist">Sélectionner un fichier unimarc : </label></br>
+                    <input type="file" name="file">
+                </div>
+                    
+                <div class="form-group">
+					</br>
+                    <button class="btn btn-primary " name="submit" type="submit">Valider</button>
+                </div>
+            </form>

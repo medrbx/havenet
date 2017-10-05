@@ -1,0 +1,14 @@
+    <div class="col-sm-12">
+    
+        <div class="row">
+        <div class="col-md-12 ">
+            <p>Notices récupérées : [% nb_bnf %] sur [% nb_rec %]</p>
+                <form method="get" action="[% request.uri_base %][% file_out %]">
+                    <div class="form-group">
+                        <button class="btn btn-success " name="submit" type="submit">Télécharger les notices</button>
+                    </div>
+                </form>
+            </div>
+            [% file %]
+        </div>
+    <div>

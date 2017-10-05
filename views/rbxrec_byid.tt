@@ -1,0 +1,23 @@
+                <form action="/records" method="POST">
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+							</br>
+                            <label for="idlist">Liste d'identifiants : </label></br>
+                            <textarea rows="30" cols="60" id="idlist" name="idlist"></textarea></br>
+                            <input type="submit" value="Valider" class="btn btn-primary " />
+                        </div>
+                    </div> 
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+							</br>
+                            <label class="control-label" for="type_query">
+                                Requête sur :
+                            </label></br>
+                            <select class="form-control" name="type_query" id="type_query">
+                                <option value="bib.ean" selected="selected">Biblio : par ean</option>
+                                <option value="bib.ark">Biblio : par identifiant ark</option>
+                                <option value="aut.ark">Autorités : par identifiant ark</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>

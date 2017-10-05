@@ -1,0 +1,35 @@
+    <div class="col-sm-12">
+       
+        [% IF bnfSruServerStatusError == 0 %]
+        <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="nav active"><a href="#A" data-toggle="tab">à partir d'un fichier unimarc</a></li>
+            <li class="nav"><a href="#B" data-toggle="tab">à partir d'une liste d'identifiants (EAN, ISBN, ...)</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="A">
+                <div class="container">
+                    [% INCLUDE rbxrec_byfile.tt %]
+                </div>
+            </div>
+        
+            <div class="tab-pane fade" id="B">
+                <div class="container">
+                    [% INCLUDE rbxrec_byid.tt %]
+                </div>            
+            <div>
+        </div>
+        
+        [% ELSE %]
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <strong>
+                    Le serveur de la BnF ne répond pas. Merci de réessayer plus tard...
+                    </strong>
+                </div>
+        </div>
+        [% END %]
+        
+    </div>
