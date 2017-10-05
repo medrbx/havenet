@@ -63,4 +63,12 @@ Dans "Outils->Télécharger des notices dans le réservoir" :
 - dans "Vérifier les données exemplaires incluses ?", on sélectionne "Non".
 - Cliquer sur "Télécharger dans le réservoir"
 
-Le fichier est alors importé dans Koha. Pour ajouter les nocites à la base, on clique sur "Gestion des notices téléchargées", dans "Ajouter des notices bibliographiques en utilisant cette grille :", on sélectionne "Catalogage", puis on clique sur "Importer ce lot dans le catalogue".
+![Import : étape 1](https://github.com/medrbx/havenet/blob/master/public/doc/kh_import1.JPG)
+
+Le fichier est alors importé dans Koha. Pour ajouter les nocites à la base, on clique sur "Gestion des notices téléchargées".
+
+![Import : étape 2](https://github.com/medrbx/havenet/blob/master/public/doc/kh_import2.JPG)
+
+Dans "Ajouter des notices bibliographiques en utilisant cette grille :", on sélectionne "Catalogage", puis on clique sur "Importer ce lot dans le catalogue".
+
+![Import : étape 3](https://github.com/medrbx/havenet/blob/master/public/doc/kh_import3.JPG)
