@@ -11,7 +11,7 @@ use rbxrec::record::file ;
 our $VERSION = '0.1';
 
 # Paramètres globaux de Dancer : ceci remplace le fichier config.yaml
-set appname => "Récupération de notices BnF";
+set appname => "Le havenet - récupération de notices BnF";
 set layout => "kibini";
 set charset => "UTF-8";
 set template => "template_toolkit";

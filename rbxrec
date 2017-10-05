@@ -1,0 +1,15 @@
+#! /usr/bin/perl
+
+use Ubic::Service::Plack;
+
+my $dir = "/home/kibini/havenet";
+
+return Ubic::Service::Plack->new({
+	server => "Starman",
+	app      => "$dir/bin/website.psgi",
+	port     => 1969,
+	ubic_log => "$dir/log/website/ubic.log",
+	stdout   => "$dir/log/website/stdout.log",
+	stderr   => "$dir/log/website/stderr.log",
+	user     => "kibini"
+});
