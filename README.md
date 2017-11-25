@@ -1,11 +1,13 @@
 # Le havenet
 Le havenet est une petite application de récupération de notices BnF.
+
 En entrée, deux possibilités sont offertes : 
 - fichier de notices unimarc, au format unimarc, codé en ISO 2709, encodé en ISO 5426 ou UTF-8,
 - liste d'identifiants (EAN, ark, ...)
+
 En sortie, on récupère un fichier unimarc. ISO 2709 encodé en UTF-8.
 
-Attention, l'outil est basé sur le service SRU de la BnF, encore en version bêta.
+**Attention, l'outil est basé sur le service SRU de la BnF, encore en version bêta.**
 
 ## Etape 1 : importer des données
 ### par fichier unimarc

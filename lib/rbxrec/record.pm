@@ -20,29 +20,34 @@ sub GetBnfRecordsById {
     
     my ($recordtype, $idtype) = split(/\./, $type_query) ;
     my (@ids) = uniq (split(/\n/, $idlist));
-	chomp(@ids) ;
+    chomp(@ids) ;
     
     my $nb_rec = scalar(@ids) ;
     my $nb_bnf_rec = 0 ;
     my $exporter = Catmandu->exporter( 'MARC', type => 'ISO', file => $file_out ); # XML ou ISO
     
     while ( my $id = <@ids> ) {
-#	foreach my $id (@ids) { # foreach ne fonctionne pas... pq ?
-		my $record = { $idtype => $id } ;
-		if ( $idtype eq 'ark' ) {
-			$record->{'ark'} =~ s/http\:\/\/catalogue\.bnf\.fr\/(.*)/$1/ ;
-		}
-		my @bnf_data = _GetBnfRecords($record, $recordtype, $idtype ) ;
-		if ( defined $bnf_data[0] ) {
-			my $record_bnf = $bnf_data[0] ;
-			$record->{record} = $record_bnf->{record} ;
-			$record->{ark_bnf} = $record_bnf->{ark_bnf} ;
-			$record->{frbnf} = $record_bnf->{frbnf} ;
-			$nb_bnf_rec++ ;
-			my $fixer = _GetCatmanduFixer( 'to_export_records', $record ) ;
-			$exporter->add_many($fixer->fix($record));
-		} 	
-	}
+#    foreach my $id (@ids) { # foreach ne fonctionne pas... pq ?
+        my $record = { $idtype => $id } ;
+        if ( $idtype eq 'ark' ) {
+            $record->{'ark'} =~ s/http\:\/\/catalogue\.bnf\.fr\/(.*)/$1/ ;
+        }
+        my @bnf_data = _GetBnfRecords($record, $recordtype, $idtype ) ;
+        if ( defined $bnf_data[0] ) {
+            my $record_bnf = $bnf_data[0] ;
+            $record->{record} = $record_bnf->{record} ;
+            $record->{ark_bnf} = $record_bnf->{ark_bnf} ;
+            $record->{frbnf} = $record_bnf->{frbnf} ;
+            $nb_bnf_rec++ ;
+			my $fixer;
+            if ( $recordtype eq 'bib' ) {
+                $fixer = _GetCatmanduFixer( 'to_export_records', $record ) ;
+            } elsif ( $recordtype eq 'aut' ) {
+                $fixer = _GetCatmanduFixer( 'to_export_auth_records', $record ) ;
+            }
+            $exporter->add_many($fixer->fix($record));
+        }     
+    }
     
     return {
         nb_rec => $nb_rec,
@@ -70,7 +75,7 @@ sub ModRecordsFile {
     
     my $nb_rec = 0 ;
     my $nb_bnf_rec = 0 ;
-	    
+        
     if ( $charset ne 'UTF-8' ) {
         $file->{file_in} = _ModFileFromIso5426ToUtf8($file->{file_in}, $charset);
     }
@@ -83,7 +88,7 @@ sub ModRecordsFile {
         my $record = shift;
         $nb_rec++ ;
         if ( $record->{ean} ) {
-			my @bnf_data = _GetBnfRecords($record, 'bib', 'ean') ;
+            my @bnf_data = _GetBnfRecords($record, 'bib', 'ean') ;
             if ( defined $bnf_data[0] ) {
                 my $record_bnf = $bnf_data[0] ;
                 $record->{record} = $record_bnf->{record} ;
@@ -155,11 +160,23 @@ sub _GetCatmanduFixer {
         push @fix, "marc_add('035', ind1 , ' ' , ind2 , ' ' , a, \"$record->{frbnf}\")" if ( defined $record->{frbnf} ) ;
         if ( defined $record->{summary} && defined $record->{ark_bnf} ) {
             push @fix, "marc_remove('330')" ;
-			$record->{summary} =~ s/"/\\"/g ;
-			push @fix, "marc_add('330', ind1 , ' ' , ind2 , ' ' , a, \"$record->{summary}\")" ;
+            $record->{summary} =~ s/"/\\"/g ;
+            push @fix, "marc_add('330', ind1 , ' ' , ind2 , ' ' , a, \"$record->{summary}\")" ;
         }
         $fixer = Catmandu->fixer(\@fix);    
-    }    
+    } elsif ( $to_do eq 'to_export_auth_records' ) {
+        my @fix = (
+            "marc_remove('003')",
+			"marc_remove('2..789')"
+        ) ;
+        push @fix, "marc_add('009', ind1 , ' ' , ind2 , ' ' , a, \"$record->{ark_bnf}\")" if ( defined $record->{ark_bnf} ) ; # Non conforme à l'unimarc/A, mais pour le moment on fait comme ça.
+        if ( defined $record->{frbnf} ) {
+            push @fix, "marc_add('035', ind1 , ' ' , ind2 , ' ' , a, \"$record->{frbnf}\")";
+            my $frbnf_number = substr $record->{frbnf}, 5;
+            push @fix, "marc_add('999', ind1 , ' ' , ind2 , ' ' , a, $frbnf_number)";
+        }
+        $fixer = Catmandu->fixer(\@fix);    
+    }
     
     return $fixer ;
 }
