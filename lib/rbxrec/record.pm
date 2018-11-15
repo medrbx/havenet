@@ -38,8 +38,8 @@ sub GetBnfRecordsById {
             $record->{record} = $record_bnf->{record};
             $record->{ark_bnf} = $record_bnf->{ark_bnf};
             $record->{frbnf} = $record_bnf->{frbnf};
-			$record->{f210} = $record_bnf->{f210};
-			$record->{f219} = $record_bnf->{f219};
+            $record->{f210} = $record_bnf->{f210};
+            $record->{f219} = $record_bnf->{f219};
             $nb_bnf_rec++;
             my $fixer;
             if ( $recordtype eq 'bib' ) {
@@ -96,8 +96,8 @@ sub ModRecordsFile {
                 $record->{record} = $record_bnf->{record};
                 $record->{ark_bnf} = $record_bnf->{ark_bnf};
                 $record->{frbnf} = $record_bnf->{frbnf};
-				$record->{f210} = $record_bnf->{f210};
-				$record->{f219} = $record_bnf->{f219};
+                $record->{f210} = $record_bnf->{f210};
+                $record->{f219} = $record_bnf->{f219};
                 $nb_bnf_rec++;
             }
         }   
@@ -155,7 +155,7 @@ sub _GetCatmanduFixer {
             "marc_map(003,ark_bnf)",
             "marc_remove('9..')",
             "marc_map(219, c219) if exists(c219) marc_map(210, c210) if exists(c210) marc_map(210a, f210.a) marc_map(210b, f210.b) marc_map(210c, f210.c) marc_map(210d, f210.d) marc_map(210e, f210.e) marc_map(210f, f210.f) marc_map(210g, f210.g) marc_map(210h, f210.h) marc_map(210r, f210.r) marc_map(210s, f210.s) end marc_map(219a, f219.a) marc_map(219b, f219.b) marc_map(219c, f219.c) marc_map(219d, f219.d) marc_map(219i, f219.i) marc_map(219p, f219.p) end"
-        );		
+        );        
         $fixer = Catmandu->fixer(\@fix);    
     } elsif ( $to_do eq 'to_export_records' ) {
         my @fix = (
@@ -163,13 +163,13 @@ sub _GetCatmanduFixer {
         );
         push @fix, "marc_add('033', ind1 , ' ' , ind2 , ' ' , a, \"$record->{ark_bnf}\")" if ( defined $record->{ark_bnf} );
         push @fix, "marc_add('035', ind1 , ' ' , ind2 , ' ' , a, \"$record->{frbnf}\")" if ( defined $record->{frbnf} );
-		
-	    if ( $record->{f219} ) {
-			my $fix_new_210 = _GetFix210($record);
-			push @fix, "marc_remove('210')";
-			push @fix, $fix_new_210;
-		}
-		
+        
+        if ( $record->{f219} ) {
+            my $fix_new_210 = _GetFix210($record);
+            push @fix, "marc_remove('210')";
+            push @fix, $fix_new_210;
+        }
+        
         if ( defined $record->{summary} && defined $record->{ark_bnf} ) {
             push @fix, "marc_remove('330')";
             $record->{summary} =~ s/"/\\"/g;
@@ -227,7 +227,7 @@ sub _ModFileFromIso5426ToUtf8 {
 }
 
 sub _GetFix210 {
-	my ($record) = @_;
+    my ($record) = @_;
      
     my $fix_new_210 = "marc_add('210', ind1, ' ', ind2, ' '";
 
@@ -300,8 +300,8 @@ sub _GetFix210 {
     }
 
     $fix_new_210 = $fix_new_210 . ")";
-	
-	return $fix_new_210;
+    
+    return $fix_new_210;
 }
 
 1;
