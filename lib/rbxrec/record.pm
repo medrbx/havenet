@@ -29,7 +29,7 @@ sub GetBnfRecordsById {
     while ( my $id = <@ids> ) {
 #    foreach my $id (@ids) { # foreach ne fonctionne pas... pq ?
         my $record = { $idtype => $id };
-        if ( $idtype eq 'ark' ) {
+        if ( $idtype eq 'persistentid' ) {
             $record->{'ark'} =~ s/http\:\/\/catalogue\.bnf\.fr\/(.*)/$1/;
         }
         my @bnf_data = _GetBnfRecords($record, $recordtype, $idtype );
