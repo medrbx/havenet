@@ -15,8 +15,8 @@
                             </label></br>
                             <select class="form-control" name="type_query" id="type_query">
                                 <option value="bib.ean" selected="selected">Biblio : par ean</option>
-                                <option value="bib.ark">Biblio : par identifiant ark</option>
-                                <option value="aut.ark">Autorités : par identifiant ark</option>
+                                <option value="bib.persistentid">Biblio : par identifiant ark</option>
+                                <option value="aut.persistentid">Autorités : par identifiant ark</option>
                             </select>
                         </div>
                     </div>
