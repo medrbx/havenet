@@ -154,9 +154,9 @@ sub _GetCatmanduFixer {
             "marc_map(001,frbnf)",
             "marc_map(003,ark_bnf)",
             "marc_remove('9..')",
-			"marc_copy(214, f214)",
-			"set_field(f214.0.tag , 210)",
-			"marc_paste(f214.0)"
+            "marc_copy(214, f214)",
+            "set_field(f214.0.tag , 210)",
+            "marc_paste(f214.0)"
  #           "marc_map(219, c219) if exists(c219) marc_map(210, c210) if exists(c210) marc_map(210a, f210.a) marc_map(210b, f210.b) marc_map(210c, f210.c) marc_map(210d, f210.d) marc_map(210e, f210.e) marc_map(210f, f210.f) marc_map(210g, f210.g) marc_map(210h, f210.h) marc_map(210r, f210.r) marc_map(210s, f210.s) end marc_map(219a, f219.a) marc_map(219b, f219.b) marc_map(219c, f219.c) marc_map(219d, f219.d) marc_map(219i, f219.i) marc_map(219p, f219.p) end"
         );        
         $fixer = Catmandu->fixer(\@fix);    
@@ -180,8 +180,8 @@ sub _GetCatmanduFixer {
         }
  
        $fixer = Catmandu->fixer(\@fix);
-	   
-	   
+       
+       
     } elsif ( $to_do eq 'to_export_auth_records' ) {
         my @fix = (
             "marc_remove('003')",
